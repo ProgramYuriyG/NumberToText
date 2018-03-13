@@ -1,3 +1,4 @@
+import java.math.BigInteger;
 import java.util.*;
 public class NumberToText {
 
@@ -31,7 +32,7 @@ public static String [] digitsNames = {"","","","hundred","thousand","million","
                 if (x == 1 && y == 0) {
                     y = SingleDigit(numberInput);
                     break;
-                } else {
+                } else if(y == 0) {
                     y = AnyDigit(numberInput, x);
                 }
             }
@@ -60,15 +61,23 @@ public static String [] digitsNames = {"","","","hundred","thousand","million","
                     System.out.print(tensNames[i]+" ");
                         return 1;
                 }else if( digitLength == 2 ){
-                    System.out.print(doubleDigitNames[i]+" ");
                     if(numberInput%10==0) {
+                        return 1;
+                    }else{
+                        i = i%10;
+                        System.out.print(doubleDigitNames[i]+" ");
+                        return 0;
+                    }
+                }else if(digitLength > 2){
+                    i = i%10;
+                    if(i != 0) {
+                        System.out.print(singleDigitNames[i] + " " + digitsNames[digitLength] + " ");
+                    }
+                    if(numberInput%100==0) {
                         return 1;
                     }else{
                         return 0;
                     }
-                }else if(digitLength == 3){
-                    System.out.print(singleDigitNames[i]+"  hundred ");
-                    return 0;
                 }
             }
         }
